@@ -7,11 +7,15 @@
     "url": "git+https://github.com/vpapp-team/backend-util.git"
   },
   "author": "Tobias Kutscha (https://github.com/TimeForANinja)",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "npm run lint",
     "lint": "eslint ./",
     "lint:fix": "eslint --fix ./"
+  },
+  "dependencies": {
+    "backend-logger": "github:vpapp-team/backend-logger",
+    "html-entities": "^1.2.1"
   },
   "devDependencies": {
     "eslint": "^5.0.0"
