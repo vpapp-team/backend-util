@@ -8,7 +8,7 @@
 > * `loader.readDir(dir, master, reload)`
 >
 > | arg | type | default | optional | description |
-> | --- | --- | --- | --- |
+> | --- | --- | --- | --- | --- |
 > | dir | string | / | false | the folder to load |
 > | master | string | / | true | the direcory the folder is located in |
 > | reload | boolean | false | true | whether to clear cache before requiring |
@@ -49,8 +49,7 @@
 > | --- | --- | --- | --- |
 > | resp | [http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) | / | false |
 > | filePath | string | / | false |
-> | headerOverwrite | object |
-/ | true |
+> | headerOverwrite | object | / | true |
 > | range | string | / | true |
 > | statusCode | number | 200 | true |
 > ## getBody
