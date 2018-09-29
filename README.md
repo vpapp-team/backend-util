@@ -4,8 +4,7 @@
 
 # modules
 > ## loader
-> * `loader(reload)`, alias for `loader.readDir(__dirname, undefined, reload)`
-> * `loader.readDir(dir, master, reload)`
+> * `loader(dir, master, reload)`
 >
 > | arg | type | default | optional | description |
 > | --- | --- | --- | --- | --- |
