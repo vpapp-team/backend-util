@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "backend-logger": "github:vpapp-team/backend-logger",
+    "backend-types": "github:vpapp-team/backend-types",
     "html-entities": "^1.2.1"
   },
   "devDependencies": {

@@ -11,13 +11,14 @@
 > | dir | string | / | false | the folder to load |
 > | master | string | / | true | the direcory the folder is located in |
 > | reload | boolean | false | true | whether to clear cache before requiring |
+>
 > ## snowflake
-> `snowflake`: class FlakeID
-> * `constructor({epoche:int, datacenter:int, worker:int})`: return a new snowflaker
-> * `next(cb)`: get the next snowflake (cb optional as long sequence doesnt overflow)
+> `snowflake`: Object
+> * `setup({epoche:int, datacenter:int, worker:int})`: setups global snowflaker, needs to be done before calling next or undo
+> * `next(cb(snowflake))`: get the next snowflake (cb optional as long as sequence doesn't overflow)
 > * `undo(snowflake, base)`: resolve a snowflake given in a given base encoding
 >
-> `snowflake.Base64`: object
+> `snowflake.Base64Converter`: object
 > * `fromInt(number)`: convert number to base64
 > * `toInt(string)`: convert base64 string to number
 >
@@ -187,3 +188,50 @@
 > returns all values of the map as an array
 > ## String.prototype.removeHTML
 > returns the string without html elements
+
+# inputValidation
+> ## validateXXX(data, string:varname)
+> * returns the normalised data
+> * XXX can be one of `Version`, `Boolean`, `UUID`, `Time`, `Timetable`, `String`, `Lesson`, `Class`, `Integer`, `Array`
+> * data is the data to validate
+> * varname is the name of the var for thrown errors
+> * can be used with validateNullable
+>
+> ## validateInStringArray(string_or_ing:data, string:varname, [string]:arrayData, boolean:ignoreCase = false)
+> * returns the int of the index
+> * data is the data to validate or an index in the array
+> * varname is the name of the var for thrown errors
+> * arrayData is an array of strings to check for
+> * ignoreCase can enable ignoring case when comparing strings
+> * can not be used with validateNullable
+>
+> ## validateArray(dataArray, string:varname, func:itemValidationFunc, boolean:canBeEmpty = false)
+> * returns an array with all normalised values
+> * dataArray is the input data
+> * varname is the name of the var for thrown errors
+> * itemValidationFunc is a func to validate the array items, matches the `validateXXX(data, string:varname)` spec
+> * canBeEmpty can enable allowing empty arrays
+> * can not be used with validateNullable
+>
+> ## validateOptionalArray(dataArray, string:varname, func:itemValidationFunc)
+> * returns null or the normalised data array
+> * dataArray is the input data
+> * varname is the name of the var for thrown errors
+> * itemValidationFunc is a func to validate the array items, matches the `validateXXX(data, string:varname)` spec
+> * can not be used with validateNullable
+>
+> ## validateNullable(data, string:varname, func:dataTester)
+> * returns null or the response of the dataTester
+> * data is the input data
+> * varname is the name of the var for thrown errors
+> * dataTester is a func to validate the item, matches the `validateXXX(data, string:varname)` spec
+>
+> ## validateLessonRangesTime(dataTime)
+> * returns an object with property int:start and int:end, both propertys are nullable
+> * dataTime is the input data
+>
+> ## validateTimetablesLessons(dataContent, dataLessons, dataUUID)
+> * returns array of Lesson objects
+> * dont know whats dataContent
+> * dont know whats dataLEssons
+> * dont know whats dataUUID
