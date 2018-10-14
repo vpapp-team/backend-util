@@ -93,16 +93,6 @@
 > | retrys | number | 3 | true | how often to retry when a request fails |
 
 # other
-> ## betweenNum
-> returns a boolean
->
-> | arg | type | default | optional | description |
-> | --- | --- | --- | --- | --- |
-> | worth | number | / | false | the number to check for |
-> | lowerBound | number | / | false | the lower bound |
-> | upperBound | number | / | false | the upper bound |
-> | tolerance | number | 0 | true | numbers by which the lower/upper bound are allowed to be incorrect |
-> | inclusive | boolean | false | true | whether to include the bound's value |
 > ## pad
 > returns as a padded string
 >
@@ -188,6 +178,15 @@
 > returns all values of the map as an array
 > ## String.prototype.removeHTML
 > returns the string without html elements
+> ## Number.prototype.betweenNum
+> returns a boolean
+>
+> | arg | type | default | optional | description |
+> | --- | --- | --- | --- | --- |
+> | lowerBound | number | / | false | the lower bound |
+> | upperBound | number | / | false | the upper bound |
+> | tolerance | number | 0 | true | numbers by which the lower/upper bound are allowed to be incorrect |
+> | inclusive | boolean | false | true | whether to include the bound's value |
 
 # inputValidation
 > ## validateXXX(data, string:varname)
