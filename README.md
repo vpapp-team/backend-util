@@ -14,9 +14,10 @@
 >
 > ## snowflake
 > `snowflake`: Object
-> * `setup({epoche:int, datacenter:int, worker:int})`: setups global snowflaker, needs to be done before calling next or undo
+> * `setCFG({epoche:int, datacenter:int, worker:int, hostname:string})`: setups global snowflaker, needs to be done before calling next or undo
 > * `next(cb(snowflake))`: get the next snowflake (cb optional as long as sequence doesn't overflow)
 > * `undo(snowflake, base)`: resolve a snowflake given in a given base encoding
+> * `getHostname()`: returns the hostname set with `setCFG()`
 >
 > `snowflake.Base64Converter`: object
 > * `fromInt(number)`: convert number to base64
@@ -44,14 +45,6 @@
 > | data | everything thats json.stringifiable | / | true |
 > | headerOverwrite | object | / | true |
 > | statusCode | number | 200 | true |
-> ## acceptFile
-> | arg | type | default | optional |
-> | --- | --- | --- | --- |
-> | resp | [http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) | / | false |
-> | filePath | string | / | false |
-> | headerOverwrite | object | / | true |
-> | range | string | / | true |
-> | statusCode | number | 200 | true |
 > ## getBody
 > | arg | type | default | optional |
 > | --- | --- | --- | --- |
@@ -78,6 +71,7 @@
 > | arg | type | default | optional | description |
 > | --- | --- | --- | --- | --- |
 > | api | string | / | false | the api to request in master |
+> | module | string | / | false | one of `validationRequest`, `dataChangeRequest` or `masterRequest` |
 > | cb | function(data) | / | false | callback to call when master responds |
 > | ...args | / | / | true | args to parse to the api |
 
@@ -102,7 +96,7 @@
 > | width | number | 1 | true | the target string's length |
 > | z | string/number | 0 | true | what to pad with, length: 1 |
 > ## unDoub
-> returns an array with all values that `===`
+> Removes all dublicate values from an array
 >
 > | arg | type | default | optional | description |
 > | --- | --- | --- | --- | --- |
@@ -191,12 +185,12 @@
 # inputValidation
 > ## validateXXX(data, string:varname)
 > * returns the normalised data
-> * XXX can be one of `Version`, `Boolean`, `UUID`, `Time`, `Timetable`, `String`, `Lesson`, `Class`, `Integer`, `Array`
+> * XXX can be one of `Version`, `Boolean`, `UUID`, `Time`, `Timetable`, `Lesson`, `String`, `LessonDiscrim`, `ClassDiscrim`, `Integer`, `JSON`
 > * data is the data to validate
 > * varname is the name of the var for thrown errors
 > * can be used with validateNullable
 >
-> ## validateInStringArray(string_or_ing:data, string:varname, [string]:arrayData, boolean:ignoreCase = false)
+> ## validateInStringArray(string_or_index:data, string:varname, [string]:arrayData, boolean:ignoreCase = false)
 > * returns the int of the index
 > * data is the data to validate or an index in the array
 > * varname is the name of the var for thrown errors
@@ -225,12 +219,6 @@
 > * varname is the name of the var for thrown errors
 > * dataTester is a func to validate the item, matches the `validateXXX(data, string:varname)` spec
 >
-> ## validateLessonRangesTime(dataTime)
-> * returns an object with property int:start and int:end, both propertys are nullable
+> ## validateLessonRangesTime(dataRange)
+> * returns an object `{ int:start, int:end }`, both propertys are nullable
 > * dataTime is the input data
->
-> ## validateTimetablesLessons(dataContent, dataLessons, dataUUID)
-> * returns array of Lesson objects
-> * dont know whats dataContent
-> * dont know whats dataLEssons
-> * dont know whats dataUUID
